@@ -59,7 +59,7 @@ export default function TransportPage() {
           <h2 className="font-playfair font-bold text-base" style={{ color: '#FAF9F6' }}>Nearest Metro Stations</h2>
           <p className="font-inter text-xs mt-0.5" style={{ color: 'rgba(250,249,246,0.65)' }}>All on Blue Line • Ordered by distance from NSUT</p>
         </div>
-        <div className="divide-y" style={{ divideColor: '#e0ddd8' }}>
+        <div className="divide-y" style={{ borderColor: '#e0ddd8' }}>
           {metroStations.map((station, i) => (
             <div key={station.name} className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors" style={{ backgroundColor: '#ffffff' }}>
               <div className="flex items-center gap-3">
