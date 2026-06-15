@@ -42,7 +42,7 @@ export default function AddSourcePage() {
   const extractPdfText = async (file: File): Promise<string> => {
     return new Promise((resolve) => {
       const reader = new FileReader()
-      reader.onload = async (e) => {
+      reader.onload = async () => {
         const text = `PDF Document: ${file.name}\n[PDF content uploaded - ${Math.round(file.size / 1024)}KB]\nPlease analyze this academic PDF and extract all important information including deadlines, events, exams, assignments, notices, placement opportunities, and action items.`
         resolve(text)
       }
@@ -107,7 +107,7 @@ export default function AddSourcePage() {
     <div className="min-h-screen font-inter" style={{ backgroundColor: '#FAF9F6' }}>
       <div className="max-w-4xl mx-auto px-4 py-8">
 
-        {/* Header */}
+        {/* Header — no "What it helps with" section */}
         <div className="mb-8">
           <h1 className="font-playfair text-3xl font-bold mb-2" style={{ color: '#0a0a0a' }}>Add Source</h1>
           <p className="font-inter text-base font-medium mb-1" style={{ color: '#014D4E' }}>
@@ -117,29 +117,6 @@ export default function AddSourcePage() {
             Upload or connect information from notices, WhatsApp messages, emails, PDFs, and the college portal.
             Our AI automatically organizes scattered information, removes clutter, highlights important updates,
             and creates easy-to-read summaries.
-          </p>
-
-          {/* What it helps with */}
-          <div className="mt-4 p-4 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e0ddd8' }}>
-            <p className="font-inter text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#014D4E' }}>What it helps with</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {[
-                'Converts messy information into structured updates',
-                'Summarizes lengthy notices instantly',
-                'Extracts deadlines, events, exams and assignments',
-                'Saves time by eliminating manual reading',
-                'Creates one centralized academic feed',
-              ].map(item => (
-                <div key={item} className="flex items-start gap-2">
-                  <span style={{ color: '#014D4E' }}>✓</span>
-                  <span className="font-inter text-xs" style={{ color: '#444444' }}>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <p className="font-inter text-xs mt-3 font-medium" style={{ color: '#014D4E' }}>
-            "Never miss an important update again."
           </p>
         </div>
 
@@ -173,7 +150,7 @@ export default function AddSourcePage() {
 
         {step !== 'done' && (
           <>
-            {/* Source Type Selection */}
+            {/* Step 1 — Source Type */}
             <div className="mb-6">
               <p className="font-inter text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#888888' }}>
                 Step 1 — Select a source
@@ -201,7 +178,7 @@ export default function AddSourcePage() {
               </div>
             </div>
 
-            {/* Input Area */}
+            {/* Step 2 — Input */}
             <div className="mb-6">
               <p className="font-inter text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#888888' }}>
                 Step 2 — {sourceType === 'pdf' ? 'Upload your PDF' : 'Paste your content'}
@@ -253,11 +230,7 @@ export default function AddSourcePage() {
                     }
                     rows={12}
                     className="w-full px-4 py-4 rounded-2xl border text-sm font-inter outline-none transition-all resize-none"
-                    style={{
-                      backgroundColor: '#ffffff',
-                      borderColor: '#e0ddd8',
-                      color: '#0a0a0a',
-                    }}
+                    style={{ backgroundColor: '#ffffff', borderColor: '#e0ddd8', color: '#0a0a0a' }}
                     onFocus={e => e.target.style.borderColor = '#014D4E'}
                     onBlur={e => e.target.style.borderColor = '#e0ddd8'}
                   />
@@ -270,7 +243,7 @@ export default function AddSourcePage() {
               )}
             </div>
 
-            {/* How to use */}
+            {/* How it works */}
             <div className="mb-6 p-4 rounded-2xl border" style={{ backgroundColor: '#ffffff', borderColor: '#e0ddd8' }}>
               <p className="font-inter text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#888888' }}>How it works</p>
               <div className="flex gap-4 flex-wrap">
@@ -279,12 +252,12 @@ export default function AddSourcePage() {
                   { num: '2', text: 'Paste content or upload PDF' },
                   { num: '3', text: 'AI analyzes the information' },
                   { num: '4', text: 'Get clean, structured summary' },
-                ].map(step => (
-                  <div key={step.num} className="flex items-center gap-2">
+                ].map(s => (
+                  <div key={s.num} className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: '#014D4E', color: '#FAF9F6' }}>
-                      {step.num}
+                      {s.num}
                     </div>
-                    <span className="font-inter text-xs" style={{ color: '#444444' }}>{step.text}</span>
+                    <span className="font-inter text-xs" style={{ color: '#444444' }}>{s.text}</span>
                   </div>
                 ))}
               </div>
@@ -312,7 +285,9 @@ export default function AddSourcePage() {
                 </div>
                 <div className="flex justify-between mt-2">
                   {['Analyzing', 'Extracting', 'Saving'].map((s, i) => (
-                    <span key={s} className="font-inter text-xs" style={{ color: (step === 'analyzing' && i === 0) || (step === 'extracting' && i <= 1) || (step === 'saving' && i <= 2) ? '#014D4E' : '#aaaaaa' }}>
+                    <span key={s} className="font-inter text-xs" style={{
+                      color: (step === 'analyzing' && i === 0) || (step === 'extracting' && i <= 1) || (step === 'saving') ? '#014D4E' : '#aaaaaa'
+                    }}>
                       {s}
                     </span>
                   ))}
@@ -320,7 +295,7 @@ export default function AddSourcePage() {
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               onClick={handleSubmit}
               disabled={loading || (sourceType === 'pdf' ? !pdfFile : !text.trim())}

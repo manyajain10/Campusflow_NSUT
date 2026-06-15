@@ -20,15 +20,15 @@ Timetable:
 - Friday: Information Security (5119) 10-11, Compiler (5119) 11-12, Digital Forensics (5222) 12-1, Compiler (5306) 1-2, Operating System (5119) 2-3
 
 Attendance:
-- Compiler: 35/40 classes = 87.5%
-- Information Security: 38/45 classes = 84.4%
-- Digital Forensics: 30/36 classes = 83.3%
-- Networking Devices: 28/33 classes = 84.8%
-- Operating System: 22/26 classes = 84.6%
+- Compiler: 35/40 = 87.5%
+- Information Security: 38/45 = 84.4%
+- Digital Forensics: 30/36 = 83.3%
+- Networking Devices: 28/33 = 84.8%
+- Operating System: 22/26 = 84.6%
 - Overall: 153/180 = 85%
 
 Transport from NSUT Dwarka:
-- Nearest Metro: Dwarka Sector 21 (Blue Line, 1.2km), Dwarka Mor (Green Line, 2.5km)
+- Nearest Metro: Dwarka Mor (Blue Line, 1.8km), Dwarka Sector 14 (Blue Line, 2.2km)
 - College Bus Route 4: departs 7:45 AM
 - Auto/E-rickshaw available outside main gate
 `
@@ -40,25 +40,39 @@ export async function POST(request: Request) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
+  // Fetch all campus items
   const { data: items } = await supabase
     .from('items')
     .select('*')
     .order('due_date', { ascending: true })
 
+  // Fetch all raw sources uploaded by user (Add Source content)
+  const { data: sources } = await supabase
+    .from('sources')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(10)
+
   const today = new Date().toISOString()
   const todayDay = new Date().toLocaleDateString('en-US', { weekday: 'long' })
+
+  // Build sources context from Add Source uploads
+  const sourcesContext = sources && sources.length > 0
+    ? `\nContent uploaded by student via Add Source (WhatsApp, Email, PDF, Notices etc):\n${sources.map((s, i) => `[Source ${i + 1} - ${s.created_at?.slice(0, 10)}]:\n${s.raw_text?.slice(0, 500)}`).join('\n\n')}`
+    : ''
 
   const response = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1000,
     messages: [{
       role: 'user',
-      content: `You are CampusFlow, a helpful AI campus assistant. Today is ${todayDay}, ${today}.
+      content: `You are AcadMate, a helpful AI academic assistant for NSUT students. Today is ${todayDay}, ${today}.
 
 ${STUDENT_CONTEXT}
 
-Campus notices and events from NSUT website:
+Campus notices and events extracted from NSUT website and Add Source:
 ${JSON.stringify(items, null, 2)}
+${sourcesContext}
 
 Student's question: ${message}
 
@@ -69,9 +83,9 @@ Rules for your response:
 - Use minimal emojis, maximum 2-3 per response only
 - Keep each bullet point to 1-2 lines maximum
 - Be concise and direct
-- If listing items, each item gets its own bullet point
-- No long paragraphs, no horizontal rules (---), no numbered lists
+- No long paragraphs, no horizontal rules, no numbered lists
 - Friendly tone like a helpful senior student
+- When asked about uploaded content or PDFs, refer to the sources context above
 - When asked about today's classes, refer to the timetable for ${todayDay}
 - When asked about attendance, give specific numbers and percentages`
     }]

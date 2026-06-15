@@ -13,28 +13,23 @@ export default function Home() {
       {/* HERO SECTION — Full screen with NSUT campus background */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
 
-        {/* NSUT campus image — ONLY here on hero */}
+        {/* NSUT campus image — increased opacity */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('/nsut-campus.jpg')`,
-            opacity: 0.12,
+            opacity: 0.25,
           }}
         />
         {/* Overlay for readability */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: '#FAF9F6', opacity: 0.80 }}
+          style={{ backgroundColor: '#FAF9F6', opacity: 0.65 }}
         />
 
-        {/* Nav inside hero */}
+        {/* Nav — NO sign in button, only logo */}
         <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-5 z-10">
           <span className="font-playfair text-xl font-bold" style={{ color: '#014D4E' }}>CampusFlow</span>
-          <Link href="/login">
-            <button className="font-inter text-sm px-5 py-2 rounded-xl transition-all hover:opacity-80" style={{ backgroundColor: '#014D4E', color: '#FAF9F6' }}>
-              Sign In
-            </button>
-          </Link>
         </div>
 
         {/* Hero content */}
@@ -57,6 +52,7 @@ export default function Home() {
             Never miss anything at NSUT again.
           </p>
 
+          {/* Single Sign In button — only here */}
           <Link href="/login">
             <button
               className="px-10 py-4 rounded-xl font-inter font-semibold text-base transition-all hover:scale-105 hover:shadow-xl"
@@ -68,7 +64,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURES SECTION — Plain off-white, no background image */}
+      {/* FEATURES SECTION */}
       <section className="py-20 px-4 border-t" style={{ borderColor: '#e0ddd8', backgroundColor: '#FAF9F6' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="font-playfair text-3xl font-bold text-center mb-4" style={{ color: '#0a0a0a' }}>
@@ -96,7 +92,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — Teal section */}
+      {/* HOW IT WORKS */}
       <section className="py-20 px-4" style={{ backgroundColor: '#014D4E' }}>
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-playfair text-3xl font-bold mb-4" style={{ color: '#FAF9F6' }}>Three simple steps</h2>
