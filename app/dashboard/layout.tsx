@@ -102,22 +102,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Mobile bottom nav */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden border-t" style={{ backgroundColor: '#014D4E', borderColor: 'rgba(250,249,246,0.1)' }}>
-        <div className="flex items-center justify-around px-2 py-2">
-          {navItems.slice(0, 4).map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all"
-              style={{ color: pathname === item.href ? '#FAF9F6' : 'rgba(250,249,246,0.45)' }}
-            >
-              <span className="text-[10px] font-inter">{item.label}</span>
-            </Link>
-          ))}
-          <button className="flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl" style={{ color: 'rgba(250,249,246,0.7)' }}>
-            <span className="text-[10px] font-inter">AcadMate</span>
-          </button>
-        </div>
-      </nav>
+  <div className="flex items-center justify-around px-1 py-2">
+    {navItems.map(item => (
+      <Link
+        key={item.href}
+        href={item.href}
+        className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl transition-all"
+        style={{ color: pathname === item.href ? '#FAF9F6' : 'rgba(250,249,246,0.45)' }}
+      >
+        <span className="text-[10px] font-inter text-center leading-tight">{item.label}</span>
+      </Link>
+    ))}
+    <button
+      className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl"
+      style={{ color: 'rgba(250,249,246,0.7)' }}
+    >
+      <span className="text-[10px] font-inter">AcadMate</span>
+    </button>
+  </div>
+</nav>
 
       <AcadMate />
 
