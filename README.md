@@ -69,11 +69,12 @@ Built for **NSUT (Netaji Subhas University of Technology), Delhi** · **Amazon H
 
 ---
 
-## 🏗️ ArchitectureMulti-Source Input (WhatsApp · PDF · Email · Portal · NSUT Scraper)
-↓
+## 🏗️ Architecture
+ Multi-Source Input (WhatsApp · PDF · Email · Portal · NSUT Scraper)
+                ↓
 AI Processing — Anthropic Claude Sonnet 4.6
 (Extraction → Classification → Conflict Detection)
-↓
+                ↓
 Supabase Postgres + Row Level Security + Auth
 ↓
 Next.js 14 API Routes (/api/ingest · /api/chat · /api/scrape)
