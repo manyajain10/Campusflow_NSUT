@@ -69,8 +69,7 @@ Built for **NSUT (Netaji Subhas University of Technology), Delhi** · **Amazon H
 
 ---
 
-## 🏗️ Architecture
-Multi-Source Input (WhatsApp · PDF · Email · Portal · NSUT Scraper)
+## 🏗️ ArchitectureMulti-Source Input (WhatsApp · PDF · Email · Portal · NSUT Scraper)
 ↓
 AI Processing — Anthropic Claude Sonnet 4.6
 (Extraction → Classification → Conflict Detection)
@@ -82,6 +81,7 @@ Next.js 14 API Routes (/api/ingest · /api/chat · /api/scrape)
 React · Tailwind CSS · shadcn/ui
 ↓
 Vercel Edge Network (Global CDN · Auto-scaling)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -103,8 +103,8 @@ Vercel Edge Network (Global CDN · Auto-scaling)
 
 ### Prerequisites
 - Node.js 20+
-- [Supabase](https://supabase.com) account
-- [Anthropic API key](https://console.anthropic.com)
+- Supabase account
+- Anthropic API key
 
 ### Installation
 
@@ -131,8 +131,6 @@ ANTHROPIC_API_KEY=your_anthropic_api_key
 # Run development server
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000)
 
 ### Database Setup
 
@@ -192,10 +190,6 @@ create policy "Users access own chats" on chat_history for all using (auth.uid()
 ## 👤 Author
 
 **Manya Jain**
-2023UIN3365 · Information Technology · 6th Semester
-Netaji Subhas University of Technology (NSUT), Dwarka, Delhi
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?logo=linkedin&style=flat-square)](https://linkedin.com/in/your-linkedin-here)
 
 ---
 
