@@ -1,4 +1,4 @@
-# 🎓 CampusFlow — AI Operating System for Student Life
+ 🎓 CampusFlow — AI Operating System for Student Life
 
 <p align="center">
   <strong>One unified AI-powered platform for every student's academic and campus life.</strong>
